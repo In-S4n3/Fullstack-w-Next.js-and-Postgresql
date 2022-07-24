@@ -11,8 +11,8 @@ const Home = ({ notes }: Notes) => {
     title: "",
     content: "",
   });
-  const router = useRouter();
 
+  const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
   };
@@ -44,6 +44,7 @@ const Home = ({ notes }: Notes) => {
         method: "PUT",
       });
       refreshData();
+      setFormData({ title: "", content: "" });
       setEditbutton(false);
     } catch (error) {
       console.log(error);
@@ -72,10 +73,12 @@ const Home = ({ notes }: Notes) => {
 
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl my-4 font-mono">Notes</h1>
-      <form className="w-auto min-w-[33%] max-w-min mx-auto space-y-6 flex flex-col">
-        <InputField setFormData={setFormData} formData={formData} />
-        <TextAreaField setFormData={setFormData} formData={formData} />
+      <h1 className="text-center font-bold text-2xl py-4 font-mono">Notes</h1>
+      <div className="w-auto min-w-[33%] max-w-min mx-auto space-y-4 flex flex-col">
+        <form className="flex flex-col space-y-2">
+          <InputField setFormData={setFormData} formData={formData} />
+          <TextAreaField setFormData={setFormData} formData={formData} />
+        </form>
         {editButton ? (
           <button
             className="bg-blue-500 text-white rounded-md"
@@ -91,7 +94,7 @@ const Home = ({ notes }: Notes) => {
             Add
           </button>
         )}
-      </form>
+      </div>
 
       <div className="w-auto min-w-[33%] max-w-min mx-auto space-y-6 flex flex-col mt-10">
         <ul>
