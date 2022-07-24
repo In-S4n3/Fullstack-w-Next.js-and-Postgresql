@@ -4,19 +4,20 @@ import { NextApiRequest, NextApiResponse } from "next";
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const noteId = req.query.id;
   const { title, content } = req.body;
-  console.log(noteId, title, content);
+
   if (req.method === "DELETE") {
     const note = await prisma.note.delete({
       where: { id: String(noteId) },
     });
     res.json(note);
-  } else {
+  }
+  if (req.method === "PUT") {
     const note = await prisma.note.update({
+      where: { id: String(noteId) },
       data: {
         title,
         content,
       },
-      where: { id: String(noteId) },
     });
     res.json(note);
   }

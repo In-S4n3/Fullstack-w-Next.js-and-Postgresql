@@ -1,13 +1,17 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import { Data } from "../types";
+interface TextAreaFieldProps {
+  setFormData: (formData: Data) => void;
+  formData: Data;
+}
 
-const TextAreaField = () => {
-  const { register } = useFormContext();
+const TextAreaField = ({ setFormData, formData }: TextAreaFieldProps) => {
   return (
     <textarea
       placeholder="Content"
-      {...register("content")}
       className="border-2 rounded border-blue-300 p-1"
+      name="content"
+      value={formData.content}
+      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
     />
   );
 };
